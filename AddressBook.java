@@ -1,9 +1,10 @@
+package Address;
+
 import java.util.*;
 public class AddressBook {
-	private int numOfCon = 0;
-	private ContactDetails[] Array;
+	private ArrayList<ContactDetails> Array;
 	private AddressBook() {
-		Array = new ContactDetails[5];
+		Array = new ArrayList<>(); //using ArrayList in place of array
 	}
 	/**
 	 * @param firstName
@@ -16,32 +17,19 @@ public class AddressBook {
 	 */
 	private void addContactDetails(String firstName, String lastName, String address, String
 			state, int zip, long phoneNo, String emailId) {
-		Array[numOfCon] = new ContactDetails();
-		Array[numOfCon].setContactDetails(firstName, lastName, address, state,
-				zip, phoneNo, emailId);
-		numOfCon++;
-	}
-	/**
-	 * @param firstName
-	 * @param lastName
-	 */
-	private void deleteContactDetails(String firstName, String lastName) {
-		for(int i = 0; i < numOfCon; i++) {
-			if(Array[i].firstName.equals(firstName) &&
-					Array[i].lastName.equals(lastName)) {
-				Array[i] = null;
-				System.out.println("Contact deleted");
-				break;
-			}
-		}
+		ContactDetails contactDetail = new ContactDetails();
+		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,
+				emailId);
+		Array.add(contactDetail);
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		AddressBook addressBook = new AddressBook();
-		System.out.println("No. of contact details to enter (upto 5): ");
-		int numOfCon = sc.nextInt();
+		System.out.println("No. of contact details to enter: ");
+		int numOfContact = sc.nextInt();
 		sc.nextLine();
-		for(int i = 0; i < numOfCon; i++) {
+		//adding
+		for(int i = 0; i < numOfContact; i++) {
 			System.out.println("First Name: ");
 			String firstName = sc.nextLine();
 			System.out.println("Last Name: ");
@@ -60,32 +48,18 @@ public class AddressBook {
 			addressBook.addContactDetails(firstName, lastName, address, state, zip,
 					phoneNo, emailId);
 		}
-		System.out.println("Enter first name of contact to be deleted: ");
-		String firstName = sc.nextLine();
-		System.out.println("Enter last name of contact to be deleted: ");
-		String lastName = sc.nextLine();
-		addressBook.deleteContactDetails(firstName, lastName);
+		System.out.println("Added Succesfully");
 	}
 }
 public class ContactDetails {
-	public String firstName;
-	public String lastName;
-	private String address; 
-	private String state;
-	private int zip;
-	private long phoneNo;
-	private String emailId;
-	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param state
-	 * @param zip
-	 * @param phoneNo
-	 * @param emailId
-	 */
-	public void setContactDetails(String firstName, String lastName, String address, String state,
-			int zip, long phoneNo, String emailId) {
+		public String firstName;
+		public String lastName;
+		private String address;
+		private String state;
+		private int zip;
+		private long phoneNo;
+		private String emailId;
+		public void setContactDetails(String firstName, String lastName, String address, String state,int zip, long phoneNo, String emailId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
