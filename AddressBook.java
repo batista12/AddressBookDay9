@@ -1,4 +1,5 @@
 package com.capgemini.addressbook;
+
 import java.util.*;
 public class AddressBook {
 	private ArrayList<ContactDetails> arrayList;
