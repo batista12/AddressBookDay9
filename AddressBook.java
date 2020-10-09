@@ -1,17 +1,58 @@
-package com.capgemini.collections;
+package com.capgemini.addressbook;
+
 import java.util.*;
 public class AddressBook {
 	private ArrayList<ContactDetails> contactArray;
+	private Map<String, ContactDetails> detailsMap;
 	private AddressBook() {
-		contactArray = new ArrayList<>(); 
+		contactArray = new ArrayList<>();
+		detailsMap = new HashMap<>();
 	}
+	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param address
+	 * @param state
+	 * @param zip
+	 * @param phoneNo
+	 * @param emailId
+	 */
+	private void addContactDetails(String firstName, String lastName, String address, String
+			state, int zip, long phoneNo, String emailId) {
+		ContactDetails contactDetail = new ContactDetails();
+		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,
+				emailId);
+		contactArray.add(contactDetail);
+		detailsMap.put(firstName.concat(" " + lastName), contactDetail);
+	}
+	/**
+	 * @param name
+	 */
+	private void seeContactDetails(String name) {
+		ContactDetails contactObj = detailsMap.get(name);
+		System.out.println(contactObj);
+	}
+	/**
+	 * @param name
+	 * @return
+	 */
+	private Object searchContactgivenName(String name) {
+		for (int i = 0; i< contactArray.size(); i++)
+		{
+			if (contactArray.get(i).firstName == name){     
+				return contactArray.get(i);
+			}
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		AddressBook addressBook = new AddressBook();
 		System.out.println("No. of contact details to enter: ");
-		int numOfCon = sc.nextInt();
+		int numOfContact = sc.nextInt();
 		sc.nextLine();
-		for(int i = 0; i < numOfCon; i++) {
+		for(int i = 0; i < numOfContact; i++) {
 			System.out.println("First Name: ");
 			String firstName = sc.nextLine();
 			System.out.println("Last Name: ");
@@ -28,23 +69,16 @@ public class AddressBook {
 			System.out.println("Email ID: ");
 			String emailId = sc.nextLine();
 			addressBook.addContactDetails(firstName, lastName, address, state, zip,phoneNo, emailId);
-		}}
-	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param state
-	 * @param zip
-	 * @param phoneNo
-	 * @param emailId
-	 */
-	private void addContactDetails(String firstName, String lastName, String address, String state, int zip, long phoneNo, String emailId) {
-		ContactDetails contactDetail = new ContactDetails();
-		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,emailId);
-		if(!contactArray.add(contactDetail))
-			System.out.println("Sorry! The contact already exists");
-		else
-			contactArray.add(contactDetail);
+		}
+		System.out.println("Enter name of person you want to print contant details of: ");
+		String name = sc.nextLine();
+		addressBook.seeContactDetails(name);
+		System.out.println("Enter the name of the person you want to search contact for:");
+		String name1=sc.nextLine();
+		long contact=Long.parseLong(name1);
+		ContactDetails c3= (ContactDetails) addressBook.searchContactgivenName(name1);
+		System.out.println("The contact details across cities and states of the given person is:");
+		System.out.println(c3);
 	}
 }
 
