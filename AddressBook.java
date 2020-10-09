@@ -1,42 +1,17 @@
+package com.capgemini.collections;
 import java.util.*;
 public class AddressBook {
 	private ArrayList<ContactDetails> contactArray;
-	private Map<String, ContactDetails> dMap;
 	private AddressBook() {
-		contactArray = new ArrayList<>();
-		dMap = new HashMap<>();
-	}
-	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param state
-	 * @param zip
-	 * @param phoneNo
-	 * @param emailId
-	 */
-	private void addContactDetails(String firstName, String lastName, String address, String
-			state, int zip, long phoneNo, String emailId) {
-		ContactDetails contactDetail = new ContactDetails();
-		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,
-				emailId);
-		contactArray.add(contactDetail);
-		dMap.put(firstName.concat(" " + lastName), contactDetail);
-	}
-	/**
-	 * @param name
-	 */
-	private void seeContactDetails(String name) {
-		ContactDetails contactObj = dMap.get(name);
-		System.out.println(contactObj);
+		contactArray = new ArrayList<>(); 
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		AddressBook addressBook = new AddressBook();
 		System.out.println("No. of contact details to enter: ");
-		int numOfContact = sc.nextInt();
+		int numOfCon = sc.nextInt();
 		sc.nextLine();
-		for(int i = 0; i < numOfContact; i++) {
+		for(int i = 0; i < numOfCon; i++) {
 			System.out.println("First Name: ");
 			String firstName = sc.nextLine();
 			System.out.println("Last Name: ");
@@ -52,14 +27,27 @@ public class AddressBook {
 			sc.nextLine();
 			System.out.println("Email ID: ");
 			String emailId = sc.nextLine();
-			addressBook.addContactDetails(firstName, lastName, address, state, zip,
-					phoneNo, emailId);
-		}
-		System.out.println("Enter name of person you want to print contant details of: ");
-		String name = sc.nextLine();
-		addressBook.seeContactDetails(name);
+			addressBook.addContactDetails(firstName, lastName, address, state, zip,phoneNo, emailId);
+		}}
+	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param address
+	 * @param state
+	 * @param zip
+	 * @param phoneNo
+	 * @param emailId
+	 */
+	private void addContactDetails(String firstName, String lastName, String address, String state, int zip, long phoneNo, String emailId) {
+		ContactDetails contactDetail = new ContactDetails();
+		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,emailId);
+		if(!contactArray.add(contactDetail))
+			System.out.println("Sorry! The contact already exists");
+		else
+			contactArray.add(contactDetail);
 	}
 }
+
 public class ContactDetails {
 	public String firstName;
 	public String lastName;
