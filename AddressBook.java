@@ -1,11 +1,10 @@
 package com.capgemini.addressbook;
-
 import java.util.*;
 public class AddressBook {
-	private ArrayList<ContactDetails> contactArray;
+	private ArrayList<ContactDetails> arrayList;
 	private Map<String, ContactDetails> detailsMap;
 	private AddressBook() {
-		contactArray = new ArrayList<>();
+		arrayList = new ArrayList<>();
 		detailsMap = new HashMap<>();
 	}
 	/**
@@ -20,39 +19,33 @@ public class AddressBook {
 	private void addContactDetails(String firstName, String lastName, String address, String
 			state, int zip, long phoneNo, String emailId) {
 		ContactDetails contactDetail = new ContactDetails();
-		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,
-				emailId);
-		contactArray.add(contactDetail);
-		detailsMap.put(firstName.concat(" " + lastName), contactDetail);
+		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,emailId);
+		arrayList.add(contactDetail);
+		detailsMap.put(state, contactDetail);
+		detailsMap.put(address, contactDetail);
 	}
 	/**
 	 * @param name
 	 */
-	private void seeContactDetails(String name) {
-		ContactDetails contactObj = detailsMap.get(name);
+	private void searchbyCity(String address) {
+		ContactDetails contactObj = detailsMap.get(address);
 		System.out.println(contactObj);
 	}
-	/**
-	 * @param name
-	 * @return
-	 */
-	private Object searchContactgivenName(String name) {
-		for (int i = 0; i< contactArray.size(); i++)
-		{
-			if (contactArray.get(i).firstName == name){     
-				return contactArray.get(i);
-			}
-		}
-		return null;
-	}
 
+	/**
+	 * @param state
+	 */
+	private void searchbyState(String state) {
+		ContactDetails contactObj = detailsMap.get(state);
+		System.out.println(contactObj);
+	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		AddressBook addressBook = new AddressBook();
 		System.out.println("No. of contact details to enter: ");
-		int numOfContact = sc.nextInt();
+		int numOfCon = sc.nextInt();
 		sc.nextLine();
-		for(int i = 0; i < numOfContact; i++) {
+		for(int i = 0; i < numOfCon; i++) {
 			System.out.println("First Name: ");
 			String firstName = sc.nextLine();
 			System.out.println("Last Name: ");
@@ -70,15 +63,12 @@ public class AddressBook {
 			String emailId = sc.nextLine();
 			addressBook.addContactDetails(firstName, lastName, address, state, zip,phoneNo, emailId);
 		}
-		System.out.println("Enter name of person you want to print contant details of: ");
-		String name = sc.nextLine();
-		addressBook.seeContactDetails(name);
-		System.out.println("Enter the name of the person you want to search contact for:");
-		String name1=sc.nextLine();
-		long contact=Long.parseLong(name1);
-		ContactDetails c3= (ContactDetails) addressBook.searchContactgivenName(name1);
-		System.out.println("The contact details across cities and states of the given person is:");
-		System.out.println(c3);
+		System.out.println("Enter name of city you want to persons of: ");
+		String city = sc.nextLine();
+		addressBook.searchbyCity(city);
+		System.out.println("Enter name of state you want to persons of: ");
+		String state= sc.nextLine();
+		addressBook.searchbyState(state);
 	}
 }
 
