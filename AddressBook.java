@@ -1,10 +1,13 @@
-public class AddressBookMain {
+package Address;
+
+import java.util.*;
+public class AddressBook {
 	private String firstName;
 	private String lastName;
 	private String address;
 	private String state;
-	private String zip;
-	private String phoneNo;
+	private int zip;
+	private long phoneNo;
 	private String emailId;
 	/**
 	 * @param firstName
@@ -15,9 +18,7 @@ public class AddressBookMain {
 	 * @param phoneNo
 	 * @param emailId
 	 */
-	public AddressBookMain (String firstName, String lastName, String address, String state, String zip,
-			String phoneNo, String emailId)
-	{
+	public AddressBook(String firstName, String lastName, String address, String state, int	zip, long phoneNo, String emailId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -27,21 +28,30 @@ public class AddressBookMain {
 		this.emailId = emailId;
 	}
 	/**
-	 * 
+	 *
 	 */
-	public void displayInfo(){
-		System.out.println("firstName: " + firstName);
-		System.out.println("lastName: " + lastName);
-		System.out.println("city: " + address);
-		System.out.println("state: " + state);
-		System.out.println("zip: " + zip);
-		System.out.println("phoneNumber: " + phoneNo);
-		System.out.println("email: " + emailId);
+	@Override
+	public String toString() {
+		return "Name: " + firstName + " " + lastName + " Address: " + address +" "+ " zip: " + zip + "PhnNo: "+ " " +phoneNo+ " " + "Email: "+ emailId;
 	}
 	public static void main(String[] args) {
-		AddressBookMain contact = new AddressBookMain( "Manasi", "Singh", "svghdfgh",
-				"hjshghja","674384", "92324448391", "manasisingh2602@gmail.com");
-		contact.displayInfo();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("First Name: ");
+		String firstName = sc.nextLine();
+		System.out.println("Last Name: ");
+		String lastName = sc.nextLine();
+		System.out.println("Address: ");
+		String address = sc.nextLine();
+		System.out.println("State: ");
+		String state = sc.nextLine();
+		System.out.println("ZIP: " );
+		int zip = sc.nextInt();
+		System.out.println("Phone No: ");
+		long phoneNo = sc.nextLong();
+		sc.nextLine();
+		System.out.println("Email ID: ");
+		String emailId = sc.nextLine();
+		AddressBook contact = new AddressBook(firstName, lastName, address,state, zip, phoneNo, emailId);
 		System.out.println(contact);
 	}
 }
