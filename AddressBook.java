@@ -1,10 +1,10 @@
-package Address;
-
 import java.util.*;
 public class AddressBook {
-	private ArrayList<ContactDetails> Array;
+	private ArrayList<ContactDetails> contactArray;
+	private Map<String, ContactDetails> dMap;
 	private AddressBook() {
-		Array = new ArrayList<>(); //using ArrayList in place of array
+		contactArray = new ArrayList<>();
+		dMap = new HashMap<>();
 	}
 	/**
 	 * @param firstName
@@ -20,7 +20,15 @@ public class AddressBook {
 		ContactDetails contactDetail = new ContactDetails();
 		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo,
 				emailId);
-		Array.add(contactDetail);
+		contactArray.add(contactDetail);
+		dMap.put(firstName.concat(" " + lastName), contactDetail);
+	}
+	/**
+	 * @param name
+	 */
+	private void seeContactDetails(String name) {
+		ContactDetails contactObj = dMap.get(name);
+		System.out.println(contactObj);
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -28,7 +36,6 @@ public class AddressBook {
 		System.out.println("No. of contact details to enter: ");
 		int numOfContact = sc.nextInt();
 		sc.nextLine();
-		//adding
 		for(int i = 0; i < numOfContact; i++) {
 			System.out.println("First Name: ");
 			String firstName = sc.nextLine();
@@ -48,18 +55,21 @@ public class AddressBook {
 			addressBook.addContactDetails(firstName, lastName, address, state, zip,
 					phoneNo, emailId);
 		}
-		System.out.println("Added Succesfully");
+		System.out.println("Enter name of person you want to print contant details of: ");
+		String name = sc.nextLine();
+		addressBook.seeContactDetails(name);
 	}
 }
 public class ContactDetails {
-		public String firstName;
-		public String lastName;
-		private String address;
-		private String state;
-		private int zip;
-		private long phoneNo;
-		private String emailId;
-		public void setContactDetails(String firstName, String lastName, String address, String state,int zip, long phoneNo, String emailId) {
+	public String firstName;
+	public String lastName;
+	private String address; 
+	private String state;
+	private int zip;
+	private long phoneNo;
+	private String emailId;
+	public void setContactDetails(String firstName, String lastName, String address, String state,
+			int zip, long phoneNo, String emailId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
